@@ -2,6 +2,7 @@
 # taken from https://hackernoon.com/10-common-security-gotchas-in-python-and-how-to-avoid-them-e19fbe265e03
 import subprocess
 import base64
+import importlib
 import cPickle as pickle
 import flask
 
@@ -23,7 +24,8 @@ class RunBinSh():
         return (subprocess.Popen, (('/bin/sh',),))
 
 def import_urlib_version(version):
-    exec("import urllib%s as urllib" % version)
+    libName = "import urllib%s as urllib" % version
+    lib = importlib.import_module(libName)
 
 app = Flask(__name__)
 
